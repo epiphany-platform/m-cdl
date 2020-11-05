@@ -2,7 +2,7 @@ ROOT_DIR := $(patsubst %/,%,$(dir $(abspath $(firstword $(MAKEFILE_LIST)))))
 
 VERSION ?= 0.0.1
 USER := epiphanyplatform
-IMAGE := awsbi
+IMAGE := cdldp
 IMAGE_NAME := $(USER)/$(IMAGE):$(VERSION)
 
 #used for correctly setting shared folder permissions
@@ -15,6 +15,7 @@ warning:
 	$(error Usage: make (build/release/metadata) )
 
 build: guard-VERSION guard-IMAGE guard-USER
+	echo $(IMAGE_NAME)
 	docker build --rm \
 		--build-arg ARG_M_VERSION=$(VERSION) \
 		--build-arg ARG_HOST_UID=$(HOST_UID) \
