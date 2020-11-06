@@ -1,2 +1,5 @@
+.envrc
+shell.nix
+workdir/manifest.yml
 ansible/inventory.yml
 ansible/showcase.priv
