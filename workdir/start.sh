@@ -1,16 +1,34 @@
 #!/bin/bash
 # set -x 
 
+ProgName=$(basename $0)
+
+sub_help(){
+    echo "Usage: $ProgName <subcommand> [options]\n"
+    echo "Subcommands:"
+    echo "    init"
+    echo "    plan"
+    echo "    apply"
+    echo "    audit"
+    echo "    destroy"
+    echo "    all"
+    echo ""
+    echo "For help with each subcommand run:"
+    echo "$ProgName <subcommand> -h|--help"
+    echo ""
+}
+
+
 function _:gcdbrown() 
-	{ echo -en "\e[0;33m$@"; }
+{ echo -en "\e[0;33m$@"; }
 
 function _:gcreset_n()
-	{ echo -e "\e[0m$@"; }
+{ echo -e "\e[0m$@"; }
 
 function _:gc_warn()
 {
-  _:gcdbrown "[GINGER][WARN] "
-  _:gcreset_n "$@"
+    _:gcdbrown "[GINGER][WARN] "
+    _:gcreset_n "$@"
 }
 
 # source $(M_RESOURCES)/templates.sh
@@ -20,44 +38,60 @@ function _:gc_warn()
 
 function metadata()
 {
-	echo asdf
-#	@echo "$$M_METADATA_CONTENT"	
+    echo asdf
+    #	@echo "$$M_METADATA_CONTENT"	
 }
 
 
 function init()
 {
-	_:gc_warn ' dupakwas'
-	ansible-playbook /srv/ansible/cdldeployment.yml -i /srv/ansible/inventory.yml --key-file "/srv/ansible/showcase.priv"
+    _:gc_warn ' dupakwas'
+    ansible-playbook /srv/ansible/cdldeployment.yml -i /srv/ansible/inventory.yml --key-file "/srv/ansible/showcase.priv"
 }
 
 function plan() 
 {
-	echo plan
+    echo plan
 }
 
 function apply() {
-	echo apply
+    echo apply
 }
 
 function audit() {
-	echo audit
+    echo audit
 }
 
 function destroy() {
-	echo destroy
+    echo destroy
 }
 
 function all() {
-	pwd
-	init
-	plan
-	apply
-	audit
-	destroy
+    pwd
+    init
+    plan
+    apply
+    audit
+    destroy
 }
 
-all
+subcommand=${1:-"all"} #all
+case $subcommand in
+    "" | "-h" | "--help")
+        sub_help
+        ;;
+    *)
+        echo "> $subcommand"
+        shift
+        $subcommand $@
+        if [ $? = 127 ]; then
+            echo "Error: '$subcommand' is not a known subcommand." >&2
+            echo "Run '$ProgName --help' for a list of known subcommands." >&2
+            exit 1
+        fi
+        ;;
+esac
+
 # setup: $(M_SHARED)/$(M_MODULE_SHORT)
 # 	#AWSBI | setup | Ensure required directories exist
 

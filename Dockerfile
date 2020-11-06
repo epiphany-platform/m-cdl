@@ -29,5 +29,5 @@ ARG ARG_M_VERSION="unknown"
 WORKDIR /srv/workdir
 WORKDIR /workdir
 # ENTRYPOINT ["/srv/workdir/start.sh"]
-CMD "/srv/workdir/start.sh"
+ENTRYPOINT ["/srv/workdir/start.sh"]
 # RUN ansible-playbook /srv/ansible/cdldeployment.yml -i /srv/ansible/inventory.yml

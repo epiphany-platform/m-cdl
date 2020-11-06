@@ -23,6 +23,11 @@ build: guard-VERSION guard-IMAGE guard-USER
 		-t $(IMAGE_NAME) \
 		.
 
+run: guard-VERSION guard-IMAGE guard-USER
+	echo $(IMAGE_NAME)
+	mkdir -p /tmp/shared
+	docker run --rm -v /tmp/shared:/shared -it $(IMAGE_NAME) $(STEP)
+
 release: guard-VERSION guard-IMAGE guard-USER
 	docker build \
 		--build-arg ARG_M_VERSION=$(VERSION) \
