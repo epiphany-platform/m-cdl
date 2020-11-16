@@ -1,0 +1,14 @@
+- name: Deploy CDL
+  hosts: localhost
+  tasks:
+  - name: Run helm chart
+    community.kubernetes.helm:
+      name: cdl
+      chart_ref: /srv/helm
+      values: "{{ lookup('template', 'values.yaml') | from_yaml }}"
+      kubeconfig: /shared/cdl/kubeconfig
+      atomic: no
+      wait: no
+      release_namespace: cdl
+      create_namespace: yes
+      release_state: present
