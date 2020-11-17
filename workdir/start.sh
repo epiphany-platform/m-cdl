@@ -59,7 +59,7 @@ function plan()
 
 function apply() {
     echo apply
-    ansible-playbook /srv/ansible/cdldeployment.yml -i /shared/build/azepi/inventory --key-file "/shared/vms_rsa"
+    ansible-playbook /srv/ansible/cdldeployment.yml -i /shared/cdl/inventory --key-file "/shared/vms_rsa"
 }
 
 function audit() {

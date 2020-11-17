@@ -1,9 +1,9 @@
 global:
-  imageRepositoryPath: epiphanyplatform/
-  imageVersion: master
-  imagePullPolicy: Always
-  kafkaBrokers: 10.1.5.4:9092
-  rabbitMqConnectionString: "amqp://rabbitmq:rabbitmq@10.1.1.4:5672/%2f"
+  imageRepositoryPath: ""
+  imageVersion: latest
+  imagePullPolicy: IfNotPresent
+  kafkaBrokers:  infrastructure-kafka-headless
+  rabbitMqConnectionString: "amqp://user:CHANGEME@infrastructure-rabbitmq:5672/%2f"
   cdlImagePullSecrets: services
   reportTopic: cdl.errors
 
@@ -13,6 +13,7 @@ dataRouter:
   bin: data-router
 
 schemaRegistry:
+  replicationTopics: cdl.schema.replication
   storageClass: standard
   storageSize: 3Gi
   port: 30150
@@ -24,6 +25,7 @@ leaderElector:
   image: cdl-leader-elector
   bin: leader-elector
 
+
 commandService:
   image: cld-command-service
   bin: command-service
@@ -34,15 +36,15 @@ documentStorage:
 
 postgres-document:
   commandServiceReplicaCount: 1
-  postgresDbReplicaCount: 0
-  postgresConnectionString: "postgres://postgres:postgres@10.1.1.5/cdldb"
+  postgresDbReplicaCount: 1
+  postgresConnectionString: "postgres://postgres:CHANGEME@infrastructure-postgresql/CDL"
   inputTopic: cdl.document.data
 
 sled-document:
-  replicaCommandCount: 0
-  replicaDbCount: 0
+  replicaCommandCount: 1
+  replicaDbCount: 1
   maxDbSize: 3Gi
-  storageClass: azurefile
+  storageClass: standard
   inputTopic: cdl.document2.data
 
 druid-timeseries:

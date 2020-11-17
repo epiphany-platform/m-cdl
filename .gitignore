@@ -1,4 +1,3 @@
 .envrc
 shell.nix
 workdir/manifest.yml
-shared/
