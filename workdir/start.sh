@@ -180,7 +180,7 @@ function plan() {
 
 function apply() {
     _:gc_info "running: apply"
-    ansible-playbook /srv/ansible/cdldeployment.yml -i /shared/cdl/inventory --key-file "/shared/vms_rsa"
+    ansible-playbook /srv/ansible/cdldeployment.yml -i /shared/cdl/inventory --key-file "/shared/vms_rsa" -e "state=present"
 }
 
 function audit() {
@@ -189,6 +189,7 @@ function audit() {
 
 function destroy() {
     _:gc_info "running: destroy"
+    ansible-playbook /srv/ansible/cdldeployment.yml -i /shared/cdl/inventory --key-file "/shared/vms_rsa" -e "state=absent"
 }
 
 function all() {
