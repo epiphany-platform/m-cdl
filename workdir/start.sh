@@ -4,6 +4,7 @@
 # required parameters:
 # ${1} inventory file
 # ${2} ssh priv key
+# ${3} kubeconfig file
 
 if [[ ! -z ${DEBUG} ]]
 then
@@ -44,6 +45,12 @@ function _:precheck() {
        _:gc_error "private key does not looks like usable private key"
        return -3
     fi
+
+    if [[ -z ${3} ]] || [[ ! -f ${3} ]] ; then
+        _:gc_error "no kubeconfig file provided"
+        return -4
+    fi
+
     _:gc_info "precheck ok"
 }
 
@@ -61,6 +68,11 @@ function _:preapply() {
     elif ! file ${2} | grep "private key" > /dev/null ; then
        _:gc_error "private key does not looks like usable private key"
        return -3
+    fi
+
+    if [[ -z ${3} ]] || [[ ! -f ${3} ]] ; then
+        _:gc_error "no kubeconfig file provided"
+        return -4
     fi
     _:gc_info "precheck ok"
 }
@@ -151,7 +163,7 @@ function metadata() {
 function init() {
     _:gc_info "running init:"
     mkdir -p /shared/cdl
-    if ! _:precheck ; then
+    if ! _:precheck /shared/build/azepi/inventory /shared/vms_rsa /shared/build/azepi/kubeconfig ; then
         _:gc_error "precheck failed!"
         return -11
     fi
