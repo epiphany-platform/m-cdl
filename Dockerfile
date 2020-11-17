@@ -16,6 +16,7 @@ RUN ansible-galaxy collection install community.kubernetes
 
 ADD ansible /srv/ansible
 ADD workdir /srv/workdir
+ADD resources /srv/resources
 ADD helm /srv/helm
 
 
