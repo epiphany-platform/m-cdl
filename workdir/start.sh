@@ -158,7 +158,6 @@ function init() {
 
     cp /shared/build/azepi/inventory /shared/cdl/inventory
     cp /shared/build/azepi/kubeconfig /shared/cdl/kubeconfig
-    cp /srv/ansible/templates/values.yml /shared/cdl/values
     cp /srv/resources/config /shared/cdl/config
     #cp /srv/helm/values.yaml /shared/cdl/cdl-config.yaml
 }
@@ -169,7 +168,7 @@ function plan() {
 
 function apply() {
     _:gc_info "running: apply"
-    ansible-playbook /srv/ansible/cdldeployment.yml -i /shared/build/azepi/inventory --key-file "/shared/vms_rsa"
+    ansible-playbook /srv/ansible/cdldeployment.yml -i /shared/cdl/inventory --key-file "/shared/vms_rsa"
 }
 
 function audit() {
