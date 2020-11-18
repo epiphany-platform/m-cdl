@@ -128,7 +128,7 @@ plan-azepi: setup
 apply-azepi: setup
 	@$(call RUN_AZEPI,apply)
 
-.PHONY: init-cdldp plan-cdldp apply-cdldp
+.PHONY: init-cdldp plan-cdldp apply-cdldp destroy-cdldp
 
 init-cdldp: setup
 	@$(call RUN_CDL,init) \
@@ -139,6 +139,9 @@ plan-cdldp: setup
 
 apply-cdldp: setup
 	@$(call RUN_CDL,apply)
+
+destroy-cdldp: setup
+	@$(call RUN_CDL,destroy)
 
 .PHONY: setup
 

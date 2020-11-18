@@ -1,5 +1,7 @@
 - name: Deploy CDL
   hosts: localhost
+  vars: 
+    state: present
   tasks:
   - name: Run helm chart
     community.kubernetes.helm:
@@ -11,4 +13,4 @@
       wait: no
       release_namespace: cdl
       create_namespace: yes
-      release_state: present
+      release_state: "{{ state }}"
