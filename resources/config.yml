@@ -1,0 +1,10 @@
+# please fill those out
+BTR_PG_USER: ""
+BTR_PG_PASSWORD: ""
+BTR_PG_DBNAME: ""
+
+BTR_RMQ_SCHEMA: "amqp"
+BTR_RMQ_USER: "" #TODO: Take it from manifest.yaml
+BTR_RMQ_PASSWORD: ""
+BTR_RMQ_PORT: "5672" #TODO: Take it from manifest.yaml
+BTR_RMQ_VHOST: "%2f"

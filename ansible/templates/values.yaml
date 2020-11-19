@@ -3,8 +3,7 @@ global:
   imageVersion: master
   imagePullPolicy: Always
   kafkaBrokers: 10.1.5.4:9092
-#  rabbitMqConnectionString: "amqp://rabbitmq:rabbitmq@10.1.1.4:5672/%2f"
-  rabbitMqConnectionString: "amqp://{BTR_RMQ_USER}:{BTR_RMQ_PASSWORD}@{BTR_RMQ_IP}:{BTR_RMQ_PORT}/%2f"
+  rabbitMqConnectionString: "{{BTR_RMQ_SCHEMA}}://{{BTR_RMQ_USER}}:{{BTR_RMQ_PASSWORD}}@{{ hostvars[groups['rabbitmq'][0]]['ansible_host'] }}:{{BTR_RMQ_PORT}}/{{BTR_RMQ_VHOST}}"
   cdlImagePullSecrets: services
   reportTopic: cdl.errors
 
@@ -36,8 +35,7 @@ documentStorage:
 postgres-document:
   commandServiceReplicaCount: 1
   postgresDbReplicaCount: 0
-  # postgresConnectionString: "postgres://postgres:postgres@10.1.1.5/cdldb"
-  postgresConnectionString: "postgres://{BTR_PG_USER}:{BTR_PG_PASSWORD}@{BTR_PG_IP}/{BTR_PG_DBNAME}"
+  postgresConnectionString: "postgres://{{BTR_PG_USER}}:{{BTR_PG_PASSWORD}}@{{ hostvars[groups['postgresql'][0]]['ansible_host'] }}/{{BTR_PG_DBNAME}}:5432"
   inputTopic: cdl.document.data
 
 sled-document:
