@@ -1,14 +1,22 @@
 ROOT_DIR := /tmp
 #ROOT_DIR := $(patsubst %/,%,$(dir $(abspath $(firstword $(MAKEFILE_LIST)))))
 
-M_NAME ?= wpo-rs
+# ----------------------------------------------------
+# IMPORTANT! THIS WILL BE THE NAME OF YOUR DEPLOYMENT!
+#
+M_NAME ?= cdl-deployment
+# ----------------------------------------------------
 
+
+# ----------------------------------------------------
+# config stuff, do not touch, unless you know what
+# you are doing
 AZBI := epiphanyplatform/azbi:latest
 AZKS := epiphanyplatform/azks:latest
 AZEPI := epiphanyplatform/azepi:latest
 CDL := epiphanyplatform/cdldp:latest
-
 VMS_RSA_FILENAME := vms_rsa
+# ----------------------------------------------------
 
 define RUN_AZBI
 docker run --rm \
@@ -51,21 +59,14 @@ endef
 
 export
 
-.PHONY: all destroy clean prepare-azks prepare-azepi finish-azepi
+.PHONY: all destroy clean prepare-azepi finish-azepi
 
-#all: init-azbi plan-azbi apply-azbi \
-	init-azks plan-azks apply-azks \
-	init-azepi plan-azepi apply-azepi \
-	init-cdldp plan-cdldp apply-cdldp
-
-all: prepare-azks prepare-azepi finish-azepi
+all: prepare-azepi finish-azepi
 
 destroy: plan-destroy-azks destroy-azks plan-destroy-azbi destroy-azbi
 
-prepare-azks: init-azbi plan-azbi apply-azbi \
-	init-azks plan-azks apply-azks
-
-prepare-azepi: init-azepi
+prepare-azepi: init-azbi plan-azbi apply-azbi \
+	init-azks plan-azks apply-azks init-azepi
 
 finish-azepi: plan-azepi apply-azepi
 
