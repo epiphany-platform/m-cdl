@@ -2,7 +2,7 @@ global:
   imageRepositoryPath: epiphanyplatform/
   imageVersion: master
   imagePullPolicy: Always
-  kafkaBrokers: 10.1.5.4:9092
+  kafkaBrokers: {{BTR_KAFKA_BROKERS}}:{{BTR_KAFKA_PORT}}
   rabbitMqConnectionString: "{{BTR_RMQ_SCHEMA}}://{{BTR_RMQ_USER}}:{{BTR_RMQ_PASSWORD}}@{{ hostvars[groups['rabbitmq'][0]]['ansible_host'] }}:{{BTR_RMQ_PORT}}/{{BTR_RMQ_VHOST}}"
   cdlImagePullSecrets: services
   reportTopic: cdl.errors
@@ -12,6 +12,7 @@ dataRouter:
   image: cdl-data-router
   bin: data-router
 
+# todo storage should be configurable
 schemaRegistry:
   storageClass: standard
   storageSize: 3Gi
@@ -46,6 +47,6 @@ sled-document:
   inputTopic: cdl.document2.data
 
 druid-timeseries:
-  replicaCommandCount: 1
+  replicaCommandCount: 0
   inputTopic: cdl.timeseries.data
   outputTopic: cdl.timeseries.generic-druid

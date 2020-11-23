@@ -16,24 +16,24 @@ then
 fi
 
 function _:gcdbrown()
-{ echo -en "\e[0;33m" "$@"; }
+{ echo -en "\e[0;33m" "${@}"; }
 
 function _:gcreset_n()
-{ echo -e "\e[0m" "$@"; }
+{ echo -e "\e[0m" "${@}"; }
 
 function _:gc_warn() {
     _:gcdbrown "[CDLDEPLOY][WARN] " >&2
-    _:gcreset_n "$@" >&2
+    _:gcreset_n "${@}" >&2
 }
 
 function _:gc_info() {
     _:gcdbrown "[CDLDEPLOY][INFO] " >&2
-    _:gcreset_n "$@"  >&2
+    _:gcreset_n "${@}"  >&2
 }
 # [todo]: fix the rest of the colors
 function _:gc_error() {
     _:gcdbrown "[CDLDEPLOY][ERROR] "  >&2
-    _:gcreset_n "$@"  >&2
+    _:gcreset_n "${@}"  >&2
 }
 
 function _:precheck() {

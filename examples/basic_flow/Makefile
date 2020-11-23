@@ -1,14 +1,22 @@
 ROOT_DIR := /tmp
 #ROOT_DIR := $(patsubst %/,%,$(dir $(abspath $(firstword $(MAKEFILE_LIST)))))
 
-M_NAME ?= wpo-rs-2
+# ----------------------------------------------------
+# IMPORTANT! THIS WILL BE THE NAME OF YOUR DEPLOYMENT!
+#
+M_NAME ?= cdl-deployment
+# ----------------------------------------------------
 
+
+# ----------------------------------------------------
+# config stuff, do not touch, unless you know what
+# you are doing
 AZBI := epiphanyplatform/azbi:latest
 AZKS := epiphanyplatform/azks:latest
 AZEPI := epiphanyplatform/azepi:latest
 CDL := epiphanyplatform/cdldp:latest
-
 VMS_RSA_FILENAME := vms_rsa
+# ----------------------------------------------------
 
 define RUN_AZBI
 docker run --rm \
